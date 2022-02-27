@@ -2,7 +2,7 @@
 //  FindImagesUITestsLaunchTests.swift
 //  FindImagesUITests
 //
-//  Created by Prakash Metia on 25/02/22.
+//  Created by Amrita on 25/02/22.
 //
 
 import XCTest

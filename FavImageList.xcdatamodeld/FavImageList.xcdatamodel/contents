@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G95" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <elements/>
+    <entity name="FabList" representedClassName="FabList" syncable="YES" codeGenerationType="class">
+        <attribute name="fabImg" optional="YES" attributeType="Binary"/>
+        <attribute name="fabImgDesc" optional="YES" attributeType="String"/>
+        <attribute name="fabImgTitle" optional="YES" attributeType="String"/>
+        <attribute name="imgDate" optional="YES" attributeType="String"/>
+        <attribute name="isFab" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isLastViewed" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+    </entity>
+    <elements>
+        <element name="FabList" positionX="-63" positionY="-18" width="128" height="119"/>
+    </elements>
 </model>
