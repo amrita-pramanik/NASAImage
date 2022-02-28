@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
        
+        tblView.isHidden = true
         let dateStr = getSelectedDate()
         lblDate?.text = "Date: " + (dateStr ?? "")
         viewDatePicker?.isHidden = true
@@ -34,14 +35,22 @@ class ViewController: UIViewController {
         tblView.delegate = self
  
         viewModel = AllImageViewDataModel()
-        viewModel?.bindImgViewModelToController  = {
+        self.reloadTableData()
+        viewModel?.bindImgViewModelToController  = {[weak self] in
             DispatchQueue.main.async {
-                self.tblView.reloadData()
-                print(self.viewModel?.nasaImgData?.title ?? "")
+                self?.reloadTableData()
             }
             
         }
         
+    }
+    
+    private func reloadTableData() {
+        if let imageDetails = self.viewModel?.nasaImgData {
+            self.tblView.isHidden = false
+            self.tblView.reloadData()
+            self.lblDate?.text = "Date: " + (imageDetails.date ?? "")
+        }
     }
     
     private func getSelectedDate() -> String? {
@@ -66,6 +75,12 @@ class ViewController: UIViewController {
     @IBAction func BtnSaveDate(_ sender: UIButton) {
         viewDatePicker?.isHidden = true
         viewBackDatePicker?.isHidden = true
+        
+        guard Reachability.isConnectedToNetwork() else {
+            showNoInternetAlert()
+            return
+        }
+        
         let dateStr = getSelectedDate()
         lblDate?.text = "Date: " + (dateStr ?? "")
         viewModel?.selectedDataStr = dateStr
@@ -79,6 +94,15 @@ class ViewController: UIViewController {
     
     func refreshFavInfo() {
         viewModel?.getFromLocalDB()
+    }
+    
+    private func showNoInternetAlert() {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: "No Internet", message: "Please check your internet connection", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 }
 
